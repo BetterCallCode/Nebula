@@ -49,3 +49,56 @@ function create(type) {
   select(el);
   refreshLayers();
 }
+
+// Selection and deselection
+function select(el) {
+  if (selected) deselect();
+  selected = el;
+  el.classList.add("selected");
+  el.classList.remove("ghost");
+  addHandles(el);
+  syncProps();
+  updateLayerHighlight();
+}
+
+function deselect() {
+  if (!selected) return;
+  selected.classList.remove("selected");
+  selected.classList.add("ghost");
+  removeHandles(selected);
+  selected = null;
+  syncProps();
+  updateLayerHighlight();
+}
+
+canvas.addEventListener("mousedown", (e) => e.target === canvas && deselect());
+
+//Drag and drop feature
+function makeInteractive(el) {
+  el.onmousedown = (e) => {
+    if (e.target.classList.contains("handle")) return;
+    select(el);
+    const sx = e.clientX,
+      sy = e.clientY;
+    const r = el.getBoundingClientRect();
+    const c = canvas.getBoundingClientRect();
+
+    const move = (ev) => {
+      let x = r.left + ev.clientX - sx - c.left;
+      let y = r.top + ev.clientY - sy - c.top;
+      x = Math.max(0, Math.min(x, canvas.clientWidth - r.width));
+      y = Math.max(0, Math.min(y, canvas.clientHeight - r.height));
+      el.style.left = x + "px";
+      el.style.top = y + "px";
+    };
+
+    const up = () => {
+      document.removeEventListener("mousemove", move);
+      document.removeEventListener("mouseup", up);
+      saveHistory();
+    };
+
+    document.addEventListener("mousemove", move);
+    document.addEventListener("mouseup", up);
+  };
+}
