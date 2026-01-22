@@ -217,3 +217,63 @@ document.querySelectorAll("[data-align]").forEach((btn) => {
     selected.style.textAlign = btn.dataset.align;
   };
 });
+
+//normalize z-index
+function normalizeZIndex() {
+  const items = [...canvas.children];
+  items
+    .sort(
+      (a, b) =>
+        (parseInt(a.style.zIndex) || 0) - (parseInt(b.style.zIndex) || 0),
+    )
+    .forEach((el, index) => {
+      el.style.zIndex = index;
+    });
+}
+
+//z-index
+document.getElementById("bringUp").onclick = () => {
+  if (!selected) return;
+
+  saveHistory();
+
+  const items = [...canvas.children].sort(
+    (a, b) => (parseInt(a.style.zIndex) || 0) - (parseInt(b.style.zIndex) || 0),
+  );
+
+  const index = items.indexOf(selected);
+
+  if (index < items.length - 1) {
+    const currentZ = parseInt(selected.style.zIndex) || 0;
+    const nextZ = parseInt(items[index + 1].style.zIndex) || 0;
+
+    selected.style.zIndex = nextZ;
+    items[index + 1].style.zIndex = currentZ;
+  }
+
+  normalizeZIndex();
+  refreshLayers();
+};
+
+document.getElementById("sendDown").onclick = () => {
+  if (!selected) return;
+
+  saveHistory();
+
+  const items = [...canvas.children].sort(
+    (a, b) => (parseInt(a.style.zIndex) || 0) - (parseInt(b.style.zIndex) || 0),
+  );
+
+  const index = items.indexOf(selected);
+
+  if (index > 0) {
+    const currentZ = parseInt(selected.style.zIndex) || 0;
+    const prevZ = parseInt(items[index - 1].style.zIndex) || 0;
+
+    selected.style.zIndex = prevZ;
+    items[index - 1].style.zIndex = currentZ;
+  }
+
+  normalizeZIndex();
+  refreshLayers();
+};
