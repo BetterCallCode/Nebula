@@ -6,6 +6,10 @@
     <title>Nebula</title>
     <link rel="stylesheet" href="design.css" />
     <link rel="shortcut icon" href="./assets/nebula.png" type="image/x-icon" />
+    <link
+    href="https://cdn.jsdelivr.net/npm/remixicon@4.8.0/fonts/remixicon.css"
+    rel="stylesheet"
+    />
   </head>
   <body>
     <div class="sidebar glass">
@@ -35,6 +39,36 @@
       <div class="topbar glass">Nebula A Visual Editor | Arrow Keys: Move | Delete: Remove</div>
       <div class="canvas-wrapper">
         <div class="canvas" id="canvas"></div>
+      </div>
+    </div>
+
+    <div class="properties glass">
+      <h3>Properties</h3>
+
+      <label>Width</label><input id="pWidth" type="number" />
+      <label>Height</label><input id="pHeight" type="number" />
+      <label>Opacity</label>
+      <input id="pOpacity" type="range" min="0" max="1" step="0.05" />
+      <label>Rotation (deg)</label><input id="pRotate" type="number" />
+      <label>Background</label><input id="pBg" type="color" />
+      <label>Text</label><input id="pText" />
+
+      <label>Text Align</label>
+      <div class="row">
+        <button data-align="left">Left</button>
+        <button data-align="center">Center</button>
+        <button data-align="right">Right</button>
+      </div>
+
+      <div class="layers">
+        <div class="layers-header">
+          <h3>Layers</h3>
+          <div class="layers-controls">
+            <button class="layer-control-btn" id="bringUp" title="Move Up"><i class="ri-arrow-up-long-fill"></i></button>
+            <button class="layer-control-btn" id="sendDown" title="Move Down"><i class="ri-arrow-down-long-fill"></i></button>
+          </div>
+        </div>
+        <div id="layers"></div>
       </div>
     </div>
 

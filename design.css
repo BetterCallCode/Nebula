@@ -189,3 +189,127 @@ body {
   left: -4px;
   cursor: nw-resize;
 }
+
+.properties {
+  width: 300px;
+  margin: 14px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-size: 13px;
+}
+
+.properties h3 {
+  margin: 0 0 6px;
+}
+
+.properties label {
+  font-size: 11px;
+  opacity: 0.8;
+}
+
+.properties input,
+.properties select {
+  width: 100%;
+  padding: 6px 8px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+  border-radius: 6px;
+}
+
+.properties input[type="color"] {
+  height: 40px;
+  padding: 4px;
+  cursor: pointer;
+}
+
+.row {
+  display: flex;
+  gap: 6px;
+}
+
+.row button {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.row button:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* ===== LAYERS ===== */
+.layers {
+  margin-top: 10px;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  padding-top: 10px;
+  overflow: auto;
+  position: relative;
+}
+
+.layers::-webkit-scrollbar {
+  display: none;
+}
+
+.layers-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.layers-controls {
+  display: flex;
+  gap: 6px;
+}
+
+.layer-control-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.layer-control-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-1px);
+}
+
+.layer-item {
+  padding: 8px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  transition: all 0.2s ease;
+  margin-bottom: 4px;
+}
+
+.layer-item:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.layer-item.active {
+  background: linear-gradient(
+    135deg,
+    rgba(99, 102, 241, 0.4),
+    rgba(79, 70, 229, 0.3)
+  );
+  border: 1px solid rgba(99, 102, 241, 0.6);
+  box-shadow: 0 2px 8px rgba(99, 102, 241, 0.3);
+  font-weight: 600;
+}
