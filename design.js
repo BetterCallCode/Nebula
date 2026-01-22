@@ -102,3 +102,118 @@ function makeInteractive(el) {
     document.addEventListener("mouseup", up);
   };
 }
+
+//Resize
+function addHandles(el) {
+  ["br", "bl", "tr", "tl"].forEach((p) => {
+    const h = document.createElement("div");
+    h.className = `handle ${p}`;
+    el.appendChild(h);
+    h.onmousedown = (e) => {
+      e.stopPropagation();
+      const sw = el.offsetWidth,
+        sh = el.offsetHeight;
+      const sx = e.clientX,
+        sy = e.clientY;
+      const move = (ev) => {
+        el.style.width = Math.max(20, sw + ev.clientX - sx) + "px";
+        el.style.height = Math.max(20, sh + ev.clientY - sy) + "px";
+      };
+      const up = () => {
+        document.removeEventListener("mousemove", move);
+        document.removeEventListener("mouseup", up);
+        saveHistory();
+        syncProps();
+      };
+      document.addEventListener("mousemove", move);
+      document.addEventListener("mouseup", up);
+    };
+  });
+}
+
+const removeHandles = (el) =>
+  el.querySelectorAll(".handle").forEach((h) => h.remove());
+
+const pWidth = document.getElementById("pWidth");
+const pHeight = document.getElementById("pHeight");
+const pOpacity = document.getElementById("pOpacity");
+const pRotate = document.getElementById("pRotate");
+const pBg = document.getElementById("pBg");
+const pText = document.getElementById("pText");
+
+function syncProps() {
+  if (!selected) {
+    pWidth.value = "";
+    pHeight.value = "";
+    pOpacity.value = 1;
+    pRotate.value = 0;
+    pBg.value = "#6366f1";
+    pText.value = "";
+    return;
+  }
+
+  pWidth.value = selected.offsetWidth;
+  pHeight.value = selected.offsetHeight;
+  pOpacity.value = selected.style.opacity || 1;
+  pRotate.value = selected.dataset.rotate || 0;
+
+  // Get the actual background color
+  if (selected.dataset.type === "text") {
+    // For text elements, use their style or default
+    const bgColor = selected.style.backgroundColor;
+    if (bgColor && bgColor !== "transparent" && bgColor !== "") {
+      pBg.value = rgbToHex(bgColor);
+    } else {
+      pBg.value = "#ffffff";
+    }
+  } else {
+    // For rect and circle, always get the actual color
+    if (selected.style.backgroundColor) {
+      pBg.value = rgbToHex(selected.style.backgroundColor);
+    } else {
+      pBg.value = "#6366f1";
+    }
+  }
+
+  pText.value = selected.dataset.type === "text" ? selected.textContent : "";
+}
+
+pWidth.oninput = () => {
+  if (!selected) return;
+  selected.style.width = pWidth.value + "px";
+  saveHistory();
+};
+
+pHeight.oninput = () => {
+  if (!selected) return;
+  selected.style.height = pHeight.value + "px";
+  saveHistory();
+};
+
+pOpacity.oninput = () => {
+  if (!selected) return;
+  selected.style.opacity = pOpacity.value;
+};
+
+pRotate.oninput = () => {
+  if (!selected) return;
+  selected.dataset.rotate = pRotate.value;
+  selected.style.transform = `rotate(${pRotate.value}deg)`;
+};
+
+pBg.oninput = () => {
+  if (!selected) return;
+  selected.style.backgroundColor = pBg.value;
+};
+
+pText.oninput = () => {
+  if (!selected || selected.dataset.type !== "text") return;
+  selected.textContent = pText.value;
+};
+
+document.querySelectorAll("[data-align]").forEach((btn) => {
+  btn.onclick = () => {
+    if (!selected || selected.dataset.type !== "text") return;
+    selected.style.textAlign = btn.dataset.align;
+  };
+});
