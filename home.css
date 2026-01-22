@@ -23,6 +23,7 @@ body {
 
 .main {
   height: 100vh;
+  background: radial-gradient(circle at top left, #1f2937, #020617 60%);
   width: 100%;
 }
 
@@ -31,13 +32,15 @@ body {
   width: 100%;
   display: flex;
   align-items: center;
+  color: white;
   justify-content: space-between;
   padding: 40px;
-  border-bottom: 2px solid rgba(37, 37, 37, 0.285);
+  border-bottom: 2px solid #5651e25a;;
 }
 
 .left h2 {
   font-size: 34px;
+  font-family: better;
 }
 
 .middle {
@@ -56,8 +59,10 @@ body {
   border-radius: 10px;
   cursor: pointer;
   font-size: 18px;
+  background: linear-gradient(135deg, #6366f1, #4f46e5);
+  color: white;
   font-weight: 600;
-  border: 2px solid black;
+  border: none;
 }
 
 .middle h3::after {
@@ -67,7 +72,7 @@ body {
   bottom: 0;
   height: 1px;
   width: 0%;
-  background-color: black;
+  background-color: #5551E2;
   transition: all ease-out 0.33s;
 }
 
@@ -80,10 +85,9 @@ body {
 }
 
 .right button:hover {
-  background-color: black;
-  color: white;
-  transform: translateY(-2px) scale(1.03);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(79, 70, 229, 0.5);
+  opacity: 0.95;
 }
 
 .hero-page {
@@ -93,18 +97,22 @@ body {
   padding-top: 200px;
   gap: 10px;
   justify-content: center;
+  position: relative;
 }
 
 .design {
   font-family: better;
+  color:#5551E2;
 }
 
 .hero-page h1 {
   font-size: 60px;
+  color: white;
 }
 
 .hero-page p {
   font-size: 20px;
+  color: white;
 }
 
 .hero-page .btn {
@@ -114,8 +122,8 @@ body {
   font-size: 18px;
   display: inline-flex;  
   font-weight: 600;
-  color: black;
-  border: 2px solid black;
+  background: linear-gradient(135deg, #6366f1, #4f46e5);
+  color: white;
   margin-top: 20px;
   text-decoration: none;
   transition: transform 0.2s ease,
@@ -128,8 +136,15 @@ body {
 }
 
 .hero-page .btn:hover {
-  background-color: black;
-  color: rgb(255, 253, 253);
+  box-shadow: 0 6px 20px rgba(79, 70, 229, 0.5);
+  opacity: 0.95;
   transform: translateY(-2px) scale(1.03);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+}
+
+.arrow{
+  position: absolute;
+  height: 150px;
+  left: 30%;
+  bottom: 26%;
+  transform: rotate(-30deg);
 }
