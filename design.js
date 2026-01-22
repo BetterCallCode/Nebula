@@ -423,3 +423,41 @@ const rgbToHex = (rgb) => {
 
   return "#6366f1";
 };
+
+//buttons to create shapes and text-box
+addRect.onclick = () => create("rect");
+addCircle.onclick = () => create("circle");
+addText.onclick = () => create("text");
+
+//Local storage
+const STORAGE_KEY = "domfigma-layout";
+
+function saveToLocalStorage() {
+  try {
+    localStorage.setItem(STORAGE_KEY, canvas.innerHTML);
+  } catch (e) {
+    console.error("Failed to save:", e);
+  }
+}
+
+function loadFromLocalStorage() {
+  const saved = localStorage.getItem(STORAGE_KEY);
+  if (!saved) return;
+
+  canvas.innerHTML = saved;
+  [...canvas.children].forEach((el) => {
+    makeInteractive(el);
+    // Ensure z-index is set
+    if (!el.style.zIndex) {
+      el.style.zIndex = "0";
+    }
+  });
+
+  refreshLayers();
+}
+
+["mouseup", "keyup", "input"].forEach((evt) => {
+  document.addEventListener(evt, saveToLocalStorage);
+});
+
+window.addEventListener("load", loadFromLocalStorage);
