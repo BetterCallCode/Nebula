@@ -384,3 +384,42 @@ document.getElementById("redoBtn").onclick = () => {
   history.push(canvas.innerHTML);
   restore(future.pop());
 };
+
+//Export
+document.getElementById("exportJSON").onclick = () =>
+  download(
+    new Blob([canvas.innerHTML], { type: "application/json" }),
+    "design.json",
+  );
+document.getElementById("exportHTML").onclick = () =>
+  download(new Blob([canvas.innerHTML], { type: "text/html" }), "design.html");
+
+const download = (blob, name) => {
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = name;
+  a.click();
+};
+
+const rgbToHex = (rgb) => {
+  // Handle "transparent" and empty values
+  if (!rgb || rgb === "transparent" || rgb === "rgba(0, 0, 0, 0)") {
+    return "#ffffff";
+  }
+
+  // Handle hex values that are already in correct format
+  if (typeof rgb === "string" && rgb.startsWith("#")) {
+    return rgb.length === 7 ? rgb : "#6366f1";
+  }
+
+  // Handle rgba and rgb formats
+  const match = String(rgb).match(/rgba?\((\d+),\s*(\d+),\s*(\d+)/);
+  if (match) {
+    const r = parseInt(match[1]).toString(16).padStart(2, "0");
+    const g = parseInt(match[2]).toString(16).padStart(2, "0");
+    const b = parseInt(match[3]).toString(16).padStart(2, "0");
+    return `#${r}${g}${b}`;
+  }
+
+  return "#6366f1";
+};
