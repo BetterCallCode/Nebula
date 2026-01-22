@@ -277,3 +277,56 @@ document.getElementById("sendDown").onclick = () => {
   normalizeZIndex();
   refreshLayers();
 };
+
+//keyboard support
+document.addEventListener("keydown", (e) => {
+  if (!selected) return;
+
+  // Prevent default for arrow keys and delete
+  if (
+    ["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight", "Delete"].includes(
+      e.key,
+    )
+  ) {
+    e.preventDefault();
+  }
+
+  const rect = selected.getBoundingClientRect();
+  const canvasRect = canvas.getBoundingClientRect();
+  let currentLeft = parseInt(selected.style.left) || 0;
+  let currentTop = parseInt(selected.style.top) || 0;
+
+  switch (e.key) {
+    case "ArrowLeft":
+      currentLeft = Math.max(0, currentLeft - 5);
+      selected.style.left = currentLeft + "px";
+      saveHistory();
+      break;
+
+    case "ArrowRight":
+      currentLeft = Math.min(canvas.clientWidth - rect.width, currentLeft + 5);
+      selected.style.left = currentLeft + "px";
+      saveHistory();
+      break;
+
+    case "ArrowUp":
+      currentTop = Math.max(0, currentTop - 5);
+      selected.style.top = currentTop + "px";
+      saveHistory();
+      break;
+
+    case "ArrowDown":
+      currentTop = Math.min(canvas.clientHeight - rect.height, currentTop + 5);
+      selected.style.top = currentTop + "px";
+      saveHistory();
+      break;
+
+    case "Delete":
+      saveHistory();
+      selected.remove();
+      selected = null;
+      refreshLayers();
+      syncProps();
+      break;
+  }
+});
