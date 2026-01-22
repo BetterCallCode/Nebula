@@ -330,3 +330,44 @@ document.addEventListener("keydown", (e) => {
       break;
   }
 });
+
+//layers
+function refreshLayers() {
+  layersEl.innerHTML = "";
+  [...canvas.children]
+    .sort(
+      (a, b) =>
+        (parseInt(b.style.zIndex) || 0) - (parseInt(a.style.zIndex) || 0),
+    )
+    .forEach((el) => {
+      const div = document.createElement("div");
+      div.className = "layer-item" + (el === selected ? " active" : "");
+      div.textContent = el.dataset.name;
+      div.onclick = () => select(el);
+
+      // Store reference to element for real-time updates
+      div.dataset.elementId = el.dataset.name;
+
+      layersEl.appendChild(div);
+    });
+
+  // Scroll active layer into view
+  if (selected) {
+    const activeLayer = layersEl.querySelector(".layer-item.active");
+    if (activeLayer) {
+      activeLayer.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    }
+  }
+}
+
+//update layer highlight
+function updateLayerHighlight() {
+  const allLayers = layersEl.querySelectorAll(".layer-item");
+  allLayers.forEach((layer) => {
+    if (selected && layer.dataset.elementId === selected.dataset.name) {
+      layer.classList.add("active");
+    } else {
+      layer.classList.remove("active");
+    }
+  });
+}
