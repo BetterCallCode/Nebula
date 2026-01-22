@@ -371,3 +371,16 @@ function updateLayerHighlight() {
     }
   });
 }
+
+//undo and redo
+document.getElementById("undoBtn").onclick = () => {
+  if (!history.length) return;
+  future.push(canvas.innerHTML);
+  restore(history.pop());
+};
+
+document.getElementById("redoBtn").onclick = () => {
+  if (!future.length) return;
+  history.push(canvas.innerHTML);
+  restore(future.pop());
+};
