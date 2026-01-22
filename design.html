@@ -1,23 +1,36 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Nebula</title>
-  <link rel="stylesheet" href="design.css">
-  <link rel="shortcut icon" href="./assets/nebula.png" type="image/x-icon">
-</head>
-<body>
-  <div class="sidebar glass">
-      <h2>DOMFigma</h2>
-      <button id="addRect">Add Rectangle</button>
-      <button id="addCircle">Add Circle</button>
-      <button id="addText">Add Text</button>
-      <button id="undoBtn">Undo</button>
-      <button id="redoBtn">Redo</button>
-      <button id="exportJSON">Export JSON</button>
-      <button id="exportHTML">Export HTML</button>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nebula</title>
+    <link rel="stylesheet" href="design.css" />
+    <link rel="shortcut icon" href="./assets/nebula.png" type="image/x-icon" />
+  </head>
+  <body>
+    <div class="sidebar glass">
+      <h2>Nebula</h2>
+
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">Elements</div>
+        <button id="addRect">Add Rectangle</button>
+        <button id="addCircle">Add Circle</button>
+        <button id="addText">Add Text</button>
+      </div>
+
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">History</div>
+        <button id="undoBtn">Undo</button>
+        <button id="redoBtn">Redo</button>
+      </div>
+
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">Export</div>
+        <button id="exportJSON">Export JSON</button>
+        <button id="exportHTML">Export HTML</button>
+      </div>
     </div>
-  <script src="design.js"></script>
-</body>
+
+    <script src="design.js"></script>
+  </body>
 </html>

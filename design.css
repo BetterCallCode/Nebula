@@ -36,13 +36,32 @@ body {
   padding: 16px;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 16px;
 }
 
 .sidebar h2 {
   margin: 0 0 8px;
-  font-size: 20px;
+  font-size: 30px;
+  font-family: better;
   letter-spacing: 0.5px;
+}
+
+.sidebar-section {
+  padding: 12px;
+  border: 2px solid rgba(255, 255, 255, 0.15);
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.sidebar-section-title {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.6;
+  margin-bottom: 4px;
+  font-weight: 600;
 }
 
 .sidebar button {
